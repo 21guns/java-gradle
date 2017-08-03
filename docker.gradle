@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            credentials {
+                username "jenkins"
+                password "hudson"
+            }
+        }
+    }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+allprojects {
+    /*
+    * https://discuss.gradle.org/t/how-do-i-apply-a-plugin-to-a-project-from-a-shared-applied-gradle-file/7508
+    * 不能使用类似apply plugin: 'org.springframework.boot'这样的语句，需要使用如下方法
+    * http://mrhaki.blogspot.jp/2015/10/gradle-goodness-apply-external-script.html
+    * https://stackoverflow.com/questions/26577805/spring-boot-gradle-plugin-cant-be-found
+    * */
+    apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
+    //apply plugin: 'docker'
+
+}
+
+//打包docker images
+task docker(type: Docker, dependsOn: build) {
+    applicationName = jar.baseName
+    dockerfile = file('Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into "${stageDir}/target"
+        }
+    }
+}

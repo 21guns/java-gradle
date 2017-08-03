@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            credentials {
+                username "jenkins"
+                password "hudson"
+            }
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+allprojects {
+    group 'com.guns21'
+    version '0.0.1-SNAPSHOT'
+
+
+    apply plugin: 'java'
+    /*
+    * https://discuss.gradle.org/t/how-do-i-apply-a-plugin-to-a-project-from-a-shared-applied-gradle-file/7508
+    * 不能使用类似apply plugin: 'org.springframework.boot'这样的语句，需要使用如下方法
+    * http://mrhaki.blogspot.jp/2015/10/gradle-goodness-apply-external-script.html
+    * https://stackoverflow.com/questions/26577805/spring-boot-gradle-plugin-cant-be-found
+    * */
+    apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+    //apply plugin: 'org.springframework.boot'
+//    apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
+    //apply plugin: 'docker'
+
+
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'http://creditcloud.com:8081/nexus/content/groups/public'
+        credentials {
+            username "jenkins"
+            password "hudson"
+        }
+    }
+}
+subprojects {
+    sourceCompatibility = 1.8
+}
