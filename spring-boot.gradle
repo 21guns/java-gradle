@@ -35,7 +35,10 @@ allprojects {
 //    apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
     //apply plugin: 'docker'
 
-
+    dependencies {
+        compileOnly('org.projectlombok:lombok')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
 }
 
 repositories {
