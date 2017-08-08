@@ -19,6 +19,17 @@ buildscript {
 }
 
 allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            credentials {
+                username "jenkins"
+                password "hudson"
+            }
+        }
+    }
+
     group 'com.guns21'
     version '1.0.0-SNAPSHOT'
 
@@ -41,16 +52,7 @@ allprojects {
     }
 }
 
-repositories {
-    mavenLocal()
-    maven {
-        url 'http://creditcloud.com:8081/nexus/content/groups/public'
-        credentials {
-            username "jenkins"
-            password "hudson"
-        }
-    }
-}
+
 subprojects {
     sourceCompatibility = 1.8
 }
