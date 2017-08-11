@@ -26,16 +26,27 @@ allprojects {
             }
         }
     }
-    
+
+
+
     group 'com.guns21'
     version '1.0.0-SNAPSHOT'
 
-
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
 
 }
 
 
 subprojects {
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }

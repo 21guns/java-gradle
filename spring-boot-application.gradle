@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springDependencyManagementVersion = '1.0.3.RELEASE'
+        springBootVersion = '1.5.6.RELEASE'
     }
     repositories {
         mavenLocal()
@@ -13,22 +13,12 @@ buildscript {
         }
     }
     dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//        classpath 'se.transmode.gradle:gradle-docker:1.2'
     }
 }
 
 allprojects {
-    ext {
-        versions = [
-            springBootVersion: '1.5.6.RELEASE',
-            guava: '21.0',
-            fastjson: '1.2.28'
-        ]
-        libraries = [
-            guava: "com.google.guava:guava:${versions.guava}",
-            fastjson: "com.alibaba:fastjson:${versions.fastjson}"
-        ]
-    }
     repositories {
         mavenLocal()
         maven {
@@ -45,34 +35,24 @@ allprojects {
 
 
     apply plugin: 'java'
-    apply plugin: 'maven-publish'
-
     /*
     * https://discuss.gradle.org/t/how-do-i-apply-a-plugin-to-a-project-from-a-shared-applied-gradle-file/7508
     * 不能使用类似apply plugin: 'org.springframework.boot'这样的语句，需要使用如下方法
     * http://mrhaki.blogspot.jp/2015/10/gradle-goodness-apply-external-script.html
     * https://stackoverflow.com/questions/26577805/spring-boot-gradle-plugin-cant-be-found
     * */
-    apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+    apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
     //apply plugin: 'org.springframework.boot'
+//    apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
+    //apply plugin: 'docker'
 
-    dependencyManagement {
-      imports {
-        mavenBom "org.springframework.boot:spring-boot-starter-parent:${versions.springBootVersion}"
-      }
-    }
-
-    // dependencies {
-    //     compileOnly('org.projectlombok:lombok')
-    //     testCompile('org.springframework.boot:spring-boot-starter-test')
-    // }
-    // 打包到maven:gradle publishToMavenLocal   
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-web') {
+            exclude module: 'spring-boot-starter-tomcat'
         }
+        compile('org.springframework.boot:spring-boot-starter-undertow')
+        compileOnly('org.projectlombok:lombok')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 }
 
