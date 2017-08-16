@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springDependencyManagementVersion = '1.0.3.RELEASE'
+        springBootVersion = '1.5.6.RELEASE'
     }
     repositories {
         mavenLocal()
@@ -13,6 +14,7 @@ buildscript {
         }
     }
     dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}"
     }
 }
@@ -20,13 +22,14 @@ buildscript {
 allprojects {
     ext {
         versions = [
-            springBootVersion: '1.5.6.RELEASE',
             guava: '21.0',
-            fastjson: '1.2.28'
+            fastjson: '1.2.28',
+            commonslang3:'3.6'
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
-            fastjson: "com.alibaba:fastjson:${versions.fastjson}"
+            fastjson: "com.alibaba:fastjson:${versions.fastjson}",
+            commonslang3:"org.apache.commons:commons-lang3:${versions.commonslang3}"
         ]
     }
     repositories {
@@ -58,7 +61,9 @@ allprojects {
 
     dependencyManagement {
       imports {
-        mavenBom "org.springframework.boot:spring-boot-starter-parent:${versions.springBootVersion}"
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Dalston.SR2'
+
       }
     }
 
