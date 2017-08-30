@@ -24,7 +24,8 @@ allprojects {
         versions = [
             guava: '21.0',
             fastjson: '1.2.28',
-            commonslang3:'3.6'
+            commonslang3:'3.6',
+            restAssured:'3.0.3'
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
@@ -71,6 +72,10 @@ allprojects {
     //     compileOnly('org.projectlombok:lombok')
     //     testCompile('org.springframework.boot:spring-boot-starter-test')
     // }
+
+    test {
+        exclude '**/BaseControllerTest.class'
+    }
     // 打包到maven:gradle publishToMavenLocal   
     publishing {
         publications {
