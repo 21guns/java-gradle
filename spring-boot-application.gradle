@@ -35,6 +35,7 @@ allprojects {
 
 
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
     /*
     * https://discuss.gradle.org/t/how-do-i-apply-a-plugin-to-a-project-from-a-shared-applied-gradle-file/7508
     * 不能使用类似apply plugin: 'org.springframework.boot'这样的语句，需要使用如下方法
@@ -55,6 +56,15 @@ allprojects {
         compile 'org.springframework.boot:spring-boot-starter-undertow'
         compileOnly 'org.projectlombok:lombok'
         testCompile 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    // 打包到maven:gradle publishToMavenLocal   
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
     }
 }
 
