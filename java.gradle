@@ -35,6 +35,8 @@ allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'maven'
 
+    def userName = System.getProperty("userName")
+    def password = System.getProperty("password")
     //上传到nexus
     uploadArchives {
         repositories {
