@@ -45,14 +45,10 @@ allprojects {
     * https://stackoverflow.com/questions/26577805/spring-boot-gradle-plugin-cant-be-found
     * */
     apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
-    apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+    // apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
     //apply plugin: 'org.springframework.boot'
-
-    dependencyManagement {
-      imports {
-        mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
-      }
-    }
+//    apply plugin: se.transmode.gradle.plugins.docker.DockerPlugin
+    //apply plugin: 'docker'
 
     dependencies {
         compile('org.springframework.boot:spring-boot-starter-web') {
