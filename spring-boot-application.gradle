@@ -36,7 +36,6 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven-publish'
-    apply plugin: 'maven'
 
     /*
     * https://discuss.gradle.org/t/how-do-i-apply-a-plugin-to-a-project-from-a-shared-applied-gradle-file/7508
@@ -66,20 +65,6 @@ allprojects {
         publications {
             mavenJava(MavenPublication) {
                 from components.java
-            }
-        }
-    }
-
-    //上传到nexus
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: "http://creditcloud.com:8081/nexus/content/repositories/snapshots") {
-                    authentication(userName: "$userName", password: "$password")
-                }
-                pom.version = "$project.version"
-                pom.artifactId = "$project.name"
-                pom.groupId = "$project.group"
             }
         }
     }
