@@ -24,7 +24,7 @@ allprojects {
         versions = [
             guava: '21.0',
             fastjson: '1.2.28',
-            commonslang3:'3.6',
+            commonslang3:'3.7',
             restAssured:'3.0.3'
         ]
         libraries = [
