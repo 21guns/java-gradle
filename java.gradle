@@ -51,7 +51,7 @@ allprojects {
         }
     }
 
-
+    
     publishing {
         publications {
             mavenJava(MavenPublication) {
@@ -59,7 +59,14 @@ allprojects {
             }
         }
     }
-
+    //打包源代码
+    task packageSources(type: Jar, dependsOn: 'classes') {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+    artifacts {
+        archives packageSources
+    }
 }
 
 
