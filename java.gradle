@@ -35,6 +35,15 @@ allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'maven'
 
+    //打包源代码
+    task packageSources(type: Jar, dependsOn: 'classes') {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+    artifacts {
+        archives packageSources
+    }
+    
     def userName = System.getProperty("userName")
     def password = System.getProperty("password")
     //上传到nexus
@@ -51,21 +60,13 @@ allprojects {
         }
     }
 
-    
+
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 from components.java
             }
         }
-    }
-    //打包源代码
-    task packageSources(type: Jar, dependsOn: 'classes') {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-    artifacts {
-        archives packageSources
     }
 }
 
