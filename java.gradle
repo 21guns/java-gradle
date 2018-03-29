@@ -44,13 +44,14 @@ allprojects {
         archives packageSources
     }
     
+    //上传到nexus
     def userName = System.getProperty("userName")
     def password = System.getProperty("password")
-    //上传到nexus
+    def url = System.getProperty("url")?:"http://creditcloud.com:8081/nexus/content/repositories/releases"
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: "http://creditcloud.com:8081/nexus/content/repositories/snapshots") {
+                repository(url: "$url") {
                     authentication(userName: "$userName", password: "$password")
                 }
                 pom.version = "$project.version"
