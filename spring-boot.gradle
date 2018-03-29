@@ -45,9 +45,7 @@ allprojects {
     }
 
     group 'com.guns21'
-    version '1.0.0'
-
-
+    
     apply plugin: 'java'
     apply plugin: 'maven-publish'
     apply plugin: 'maven'
