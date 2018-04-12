@@ -59,7 +59,6 @@ allprojects {
         compile('org.springframework.boot:spring-boot-starter-web') {
             exclude module: 'spring-boot-starter-tomcat'
         }
-        compile 'com.zaxxer:HikariCP:2.7.8'
         runtime 'mysql:mysql-connector-java'
         compile 'org.springframework.boot:spring-boot-starter-undertow'
         compileOnly 'org.projectlombok:lombok'
