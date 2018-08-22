@@ -43,8 +43,6 @@ allprojects {
             }
         }
     }
-
-    group 'com.guns21'
     
     apply plugin: 'java'
     apply plugin: 'maven-publish'
