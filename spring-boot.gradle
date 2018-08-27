@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springDependencyManagementVersion = '1.0.5.RELEASE'
-        springBootVersion = '2.0.2.RELEASE'
+        springDependencyManagementVersion = '1.0.6.RELEASE'
+        springBootVersion = '2.0.4.RELEASE'
     }
     repositories {
         mavenLocal()
