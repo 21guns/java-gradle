@@ -22,7 +22,7 @@ buildscript {
 allprojects {
     ext {
         versions = [
-            guava: '24.1-jre',
+            guava: '28.0-jre',
             fastjson: '1.2.28',
             commonslang3:'3.7',
             restAssured:'3.0.3'
