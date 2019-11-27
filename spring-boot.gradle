@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springDependencyManagementVersion = '1.0.6.RELEASE'
-        springBootVersion = '2.0.9.RELEASE'
+        springBootVersion = '2.2.1.RELEASE'
     }
     repositories {
         mavenLocal()
@@ -22,9 +22,9 @@ buildscript {
 allprojects {
     ext {
         versions = [
-            guava: '28.0-jre',
-            fastjson: '1.2.28',
-            commonslang3:'3.7',
+            guava: '28.1-jre',
+            fastjson: '1.2.62',
+            commonslang3:'3.9',
             restAssured:'3.0.3'
         ]
         libraries = [
