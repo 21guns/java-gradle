@@ -63,6 +63,7 @@ allprojects {
         runtime 'mysql:mysql-connector-java'
         compile 'org.springframework.boot:spring-boot-starter-undertow'
         compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 
         testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
