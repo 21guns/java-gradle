@@ -36,6 +36,7 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven-publish'
+    apply plugin: 'java-library'
 
     /*
     * https://discuss.gradle.org/t/how-do-i-apply-a-plugin-to-a-project-from-a-shared-applied-gradle-file/7508
