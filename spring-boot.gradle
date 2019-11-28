@@ -12,6 +12,9 @@ buildscript {
                 password "hudson"
             }
         }
+        maven {
+            url 'https://repo.spring.io/milestone'
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
