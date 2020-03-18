@@ -28,7 +28,7 @@ allprojects {
             guava: '28.2-jre',
             fastjson: '1.2.66',
             commonslang3:'3.9',
-            restAssured:'4.3.0'
+            restAssured:'3.0.3'
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
