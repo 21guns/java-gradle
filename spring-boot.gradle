@@ -25,10 +25,10 @@ buildscript {
 allprojects {
     ext {
         versions = [
-            guava: '28.1-jre',
-            fastjson: '1.2.62',
+            guava: '28.2-jre',
+            fastjson: '1.2.66',
             commonslang3:'3.9',
-            restAssured:'3.0.3'
+            restAssured:'4.3.0'
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
