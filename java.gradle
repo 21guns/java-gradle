@@ -43,7 +43,7 @@ allprojects {
     //上传到nexus
     def userName = System.getProperty("userName")
     def password = System.getProperty("password")
-    def url = System.getProperty("url")?:"http://creditcloud.com:8081/nexus/content/repositories/releases"
+    def url = System.getProperty("url")?:"http://creditcloud.com:8081/nexus/content/repositories"
     uploadArchives {
         repositories {
             mavenDeployer {
