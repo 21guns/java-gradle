@@ -47,7 +47,10 @@ allprojects {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: "$url") {
+                repository(url: "$url" + '/releases') {
+                    authentication(userName: "$userName", password: "$password")
+                }
+                snapshotRepository(url: "$url" + '/snapshots') {
                     authentication(userName: "$userName", password: "$password")
                 }
                 pom.version = "$project.version"
