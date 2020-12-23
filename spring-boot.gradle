@@ -43,9 +43,9 @@ allprojects {
                 username "jenkins"
                 password "hudson"
             }
-            maven {
-                url 'https://repo.spring.io/milestone'
-            }
+            // maven {
+            //     url 'https://repo.spring.io/milestone'
+            // }
         }
     }
     
