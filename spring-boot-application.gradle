@@ -6,6 +6,7 @@ buildscript {
         mavenLocal()
         maven {
             url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            allowInsecureProtocol = true
             credentials {
                 username "jenkins"
                 password "hudson"
@@ -23,6 +24,7 @@ allprojects {
         mavenLocal()
         maven {
             url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            allowInsecureProtocol = true
             credentials {
                 username "jenkins"
                 password "hudson"
