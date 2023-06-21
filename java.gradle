@@ -1,13 +1,17 @@
 buildscript {
     ext {
+        defUrl = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/"
+        userName = System.getProperty("userName")
+        pasw = System.getProperty("password")
     }
     repositories {
         mavenLocal()
         maven {
-            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            url "${defUrl}groups/public"
+            allowInsecureProtocol = true
             credentials {
-                username "jenkins"
-                password "hudson"
+                username userName
+                password pasw
             }
         }
     }
@@ -18,10 +22,11 @@ allprojects {
     repositories {
         mavenLocal()
         maven {
-            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            url "${defUrl}groups/public"
+            allowInsecureProtocol = true
             credentials {
-                username "jenkins"
-                password "hudson"
+                username userName
+                password pasw
             }
         }
     }
@@ -51,9 +56,7 @@ allprojects {
         repositories {
              maven {
                 // change URLs to point to your repos, e.g. http://my.org/repo
-                url = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/repositories"
-                def userName = System.getProperty("userName")
-                def pasw = System.getProperty("password")
+                url = defUrl + "repositories"
                 def releasesRepoUrl = "$url" + '/releases'
                 def snapshotsRepoUrl = "$url" + '/snapshots'
                 url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
