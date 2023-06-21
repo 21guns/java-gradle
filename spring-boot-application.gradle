@@ -75,6 +75,11 @@ allprojects {
 
     // 打包到maven:gradle publishToMavenLocal   
     publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
        repositories {
              maven {
                 // change URLs to point to your repos, e.g. http://my.org/repo
