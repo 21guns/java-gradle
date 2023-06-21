@@ -53,7 +53,6 @@ allprojects {
     
     apply plugin: 'java'
     apply plugin: 'maven-publish'
-    apply plugin: 'maven'
     apply plugin: 'java-library'
 
     /*
@@ -76,55 +75,34 @@ allprojects {
     dependencies {
         annotationProcessor 'org.projectlombok:lombok:1.18.12'
         compileOnly 'org.projectlombok:lombok'
-        testCompile 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
     test {
         exclude '**/BaseControllerTest.class'
     }
     
-    //打包源代码
-    task packageSources(type: Jar, dependsOn: 'classes') {
-        classifier = 'sources'
-        from sourceSets.main.allSource
+    java {
+        withSourcesJar()
     }
-    artifacts {
-        archives packageSources
-    }
-
     // 打包到maven:gradle publishToMavenLocal   
     publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                versionMapping {
-                    usage('java-api') {
-                        fromResolutionOf('runtimeClasspath')
-                    }
-                    usage('java-runtime') {
-                        fromResolutionResult()
-                    }
+       repositories {
+             maven {
+                // change URLs to point to your repos, e.g. http://my.org/repo
+                url = defUrl + "repositories"
+                def releasesRepoUrl = "$url" + '/releases'
+                def snapshotsRepoUrl = "$url" + '/snapshots'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                allowInsecureProtocol = true
+                credentials {
+                    username userName
+                    password pasw
                 }
             }
         }
     }
-    //上传到nexus
-    def url = defUrl + "repositories"
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: "$url" + '/releases') {
-                    authentication(userName: "$userName", password: "$pasw")
-                }
-                snapshotRepository(url: "$url" + '/snapshots') {
-                    authentication(userName: "$userName", password: "$pasw")
-                }
-                pom.version = "$project.version"
-                pom.artifactId = "$project.name"
-                pom.groupId = "$project.group"
-            }
-        }
-    }
+
 
     //打印警告信息
     gradle.projectsEvaluated {
