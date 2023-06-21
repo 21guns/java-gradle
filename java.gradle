@@ -1,13 +1,17 @@
 buildscript {
     ext {
+        defUrl = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/"
+        userName = System.getProperty("userName")
+        pasw = System.getProperty("password")
     }
     repositories {
         mavenLocal()
         maven {
-            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            url "${defUrl}groups/public"
+            allowInsecureProtocol = true
             credentials {
-                username "jenkins"
-                password "hudson"
+                username userName
+                password pasw
             }
         }
     }
@@ -18,10 +22,11 @@ allprojects {
     repositories {
         mavenLocal()
         maven {
-            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            url "${defUrl}groups/public"
+            allowInsecureProtocol = true
             credentials {
-                username "jenkins"
-                password "hudson"
+                username userName
+                password pasw
             }
         }
     }
@@ -41,17 +46,15 @@ allprojects {
     }
     
     //上传到nexus
-    def userName = System.getProperty("userName")
-    def password = System.getProperty("password")
-    def url = System.getProperty("url")?:"http://creditcloud.com:8081/nexus/content/repositories"
+    def url = defUrl + "repositories"
     uploadArchives {
         repositories {
             mavenDeployer {
                 repository(url: "$url" + '/releases') {
-                    authentication(userName: "$userName", password: "$password")
+                    authentication(userName: "$userName", password: "$pasw")
                 }
                 snapshotRepository(url: "$url" + '/snapshots') {
-                    authentication(userName: "$userName", password: "$password")
+                    authentication(userName: "$userName", password: "$pasw")
                 }
                 pom.version = "$project.version"
                 pom.artifactId = "$project.name"

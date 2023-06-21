@@ -1,15 +1,18 @@
 buildscript {
     ext {
+        defUrl = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/"
+        userName = System.getProperty("userName")
+        pasw = System.getProperty("password")
         springBootVersion = '2.3.12.RELEASE'
     }
     repositories {
         mavenLocal()
         maven {
-            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            url "${defUrl}groups/public"
             allowInsecureProtocol = true
             credentials {
-                username "jenkins"
-                password "hudson"
+                username userName
+                password pasw
             }
         }
     }
@@ -23,11 +26,11 @@ allprojects {
     repositories {
         mavenLocal()
         maven {
-            url 'http://creditcloud.com:8081/nexus/content/groups/public'
+            url "${defUrl}groups/public"
             allowInsecureProtocol = true
             credentials {
-                username "jenkins"
-                password "hudson"
+                username userName
+                password pasw
             }
         }
     }
