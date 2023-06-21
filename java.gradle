@@ -28,38 +28,11 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven-publish'
-    apply plugin: 'maven'
     apply plugin: 'java-library'
 
-    //打包源代码
-    task packageSources(type: Jar, dependsOn: 'classes') {
-        classifier = 'sources'
-        from sourceSets.main.allSource
+    java {
+        withSourcesJar()
     }
-    artifacts {
-        archives packageSources
-    }
-    
-    //上传到nexus
-    def userName = System.getProperty("userName")
-    def password = System.getProperty("password")
-    def url = System.getProperty("url")?:"http://creditcloud.com:8081/nexus/content/repositories"
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: "$url" + '/releases') {
-                    authentication(userName: "$userName", password: "$password")
-                }
-                snapshotRepository(url: "$url" + '/snapshots') {
-                    authentication(userName: "$userName", password: "$password")
-                }
-                pom.version = "$project.version"
-                pom.artifactId = "$project.name"
-                pom.groupId = "$project.group"
-            }
-        }
-    }
-
 
     publishing {
         publications {
@@ -75,11 +48,27 @@ allprojects {
                 }
             }
         }
+        repositories {
+             maven {
+                // change URLs to point to your repos, e.g. http://my.org/repo
+                url = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/repositories"
+                def userName = System.getProperty("userName")
+                def pasw = System.getProperty("password")
+                def releasesRepoUrl = "$url" + '/releases'
+                def snapshotsRepoUrl = "$url" + '/snapshots'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                allowInsecureProtocol = true
+                credentials {
+                    username userName
+                    password pasw
+                }
+            }
+        }
     }
 }
 
 
 subprojects {
-    sourceCompatibility = 11
-    targetCompatibility = 11
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }

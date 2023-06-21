@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.3.12.RELEASE'
+        springBootVersion = '3.0.7'
     }
     repositories {
         mavenLocal()
@@ -63,11 +63,11 @@ allprojects {
             exclude module: 'spring-boot-starter-tomcat'
         }
         runtime 'mysql:mysql-connector-java'
-        compile 'org.springframework.boot:spring-boot-starter-undertow'
+        implementation 'org.springframework.boot:spring-boot-starter-undertow'
         compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
-        testCompile 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
     // 打包到maven:gradle publishToMavenLocal   
@@ -90,6 +90,6 @@ allprojects {
 
 
 subprojects {
-    sourceCompatibility = 11
-    targetCompatibility = 11
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }

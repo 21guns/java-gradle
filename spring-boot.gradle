@@ -1,7 +1,8 @@
 buildscript {
     ext {
-        springDependencyManagementVersion = '1.0.9.RELEASE'
-        springBootVersion = '2.3.12.RELEASE'
+        springDependencyManagementVersion = '1.1.0'
+        springBootVersion = '3.0.7'
+        springCloudVersion = '2022.0.3'
     }
     repositories {
         mavenLocal()
@@ -18,7 +19,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}"
     }
 }
@@ -26,9 +27,9 @@ buildscript {
 allprojects {
     ext {
         versions = [
-            guava: '28.2-jre',
-            fastjson: '1.2.66',
-            commonslang3:'3.9',
+            guava: '32.0.1-jre',
+            fastjson: '2.0.34',
+            commonslang3:'3.12.0',
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
@@ -51,9 +52,12 @@ allprojects {
         }
     }
     
+    // plugins {
+    //     	id 'org.springframework.boot' version '${springBootVersion}' apply false
+
+    // }
     apply plugin: 'java'
     apply plugin: 'maven-publish'
-    apply plugin: 'maven'
     apply plugin: 'java-library'
 
     /*
@@ -63,33 +67,28 @@ allprojects {
     * https://stackoverflow.com/questions/26577805/spring-boot-gradle-plugin-cant-be-found
     * */
     apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
-    //apply plugin: 'org.springframework.boot'
+    // apply plugin: "io.spring.dependency-management"
+
 
     dependencyManagement {
       imports {
         mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR3'
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 
       }
     }
 
     dependencies {
-        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.26'
         compileOnly 'org.projectlombok:lombok'
-        testCompile 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
     test {
         exclude '**/BaseControllerTest.class'
     }
-    
-    //打包源代码
-    task packageSources(type: Jar, dependsOn: 'classes') {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-    artifacts {
-        archives packageSources
+    java {
+        withSourcesJar()
     }
 
     // 打包到maven:gradle publishToMavenLocal   
@@ -107,23 +106,20 @@ allprojects {
                 }
             }
         }
-    }
-    //上传到nexus
-    def userName = System.getProperty("userName")
-    def password = System.getProperty("password")
-    def url = System.getProperty("url")?:"http://creditcloud.com:8081/nexus/content/repositories"
-    uploadArchives {
         repositories {
-            mavenDeployer {
-                repository(url: "$url" + '/releases') {
-                    authentication(userName: "$userName", password: "$password")
+             maven {
+                // change URLs to point to your repos, e.g. http://my.org/repo
+                url = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/repositories"
+                def userName = System.getProperty("userName")
+                def pasw = System.getProperty("password")
+                def releasesRepoUrl = "$url" + '/releases'
+                def snapshotsRepoUrl = "$url" + '/snapshots'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                allowInsecureProtocol = true
+                credentials {
+                    username userName
+                    password pasw
                 }
-                snapshotRepository(url: "$url" + '/snapshots') {
-                    authentication(userName: "$userName", password: "$password")
-                }
-                pom.version = "$project.version"
-                pom.artifactId = "$project.name"
-                pom.groupId = "$project.group"
             }
         }
     }
@@ -138,6 +134,6 @@ allprojects {
 
 
 subprojects {
-    sourceCompatibility = 11
-    targetCompatibility = 11
+    sourceCompatibility = 17
+    targetCompatibility = 17
 }
