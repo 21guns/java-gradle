@@ -40,19 +40,19 @@ allprojects {
     }
 
     publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                versionMapping {
-                    usage('java-api') {
-                        fromResolutionOf('runtimeClasspath')
-                    }
-                    usage('java-runtime') {
-                        fromResolutionResult()
-                    }
-                }
-            }
-        }
+        // publications {
+        //     mavenJava(MavenPublication) {
+        //         from components.java
+        //         versionMapping {
+        //             usage('java-api') {
+        //                 fromResolutionOf('runtimeClasspath')
+        //             }
+        //             usage('java-runtime') {
+        //                 fromResolutionResult()
+        //             }
+        //         }
+        //     }
+        // }
         repositories {
              maven {
                 // change URLs to point to your repos, e.g. http://my.org/repo
