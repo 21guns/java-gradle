@@ -75,19 +75,19 @@ allprojects {
 
     // 打包到maven:gradle publishToMavenLocal   
     publishing {
-        // publications {
-        //     mavenJava(MavenPublication) {
-        //         from components.java
-        //         versionMapping {
-        //             usage('java-api') {
-        //                 fromResolutionOf('runtimeClasspath')
-        //             }
-        //             usage('java-runtime') {
-        //                 fromResolutionResult()
-        //             }
-        //         }
-        //     }
-        // }
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+            }
+        }
     }
 }
 

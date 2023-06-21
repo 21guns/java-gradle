@@ -96,11 +96,19 @@ allprojects {
 
     // 打包到maven:gradle publishToMavenLocal   
     publishing {
-        // publications {
-        //     maven(MavenPublication) {
-        //         from components.java
-        //     }
-        // }
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+            }
+        }
         repositories {
              maven {
                 // change URLs to point to your repos, e.g. http://my.org/repo
