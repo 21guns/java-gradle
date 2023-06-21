@@ -41,6 +41,9 @@ allprojects {
 
     publishing {
         publications {
+            maven(MavenPublication) {
+                from components.java
+            }
             mavenJava(MavenPublication) {
                 versionMapping {
                     usage('java-api') {
