@@ -88,10 +88,8 @@ allprojects {
     // 打包到maven:gradle publishToMavenLocal   
     publishing {
         publications {
-            maven(MavenPublication) {
-                from components.java
-            }
             mavenJava(MavenPublication) {
+                from components.java
                 versionMapping {
                     usage('java-api') {
                         fromResolutionOf('runtimeClasspath')
