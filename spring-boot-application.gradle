@@ -3,7 +3,7 @@ buildscript {
         defUrl = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/"
         userName = System.getProperty("userName")
         pasw = System.getProperty("password")
-        springBootVersion = '3.0.7'
+        springBootVersion = '3.1.4'
     }
     repositories {
         mavenLocal()
