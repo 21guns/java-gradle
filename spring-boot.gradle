@@ -36,7 +36,7 @@ allprojects {
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
-            fastjson: "com.alibaba:fastjson2:${versions.fastjson}",
+            fastjson: "com.alibaba.fastjson2:fastjson2:${versions.fastjson}",
             commonslang3:"org.apache.commons:commons-lang3:${versions.commonslang3}"
         ]
         // defUrl = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/"
