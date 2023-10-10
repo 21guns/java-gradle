@@ -30,13 +30,13 @@ buildscript {
 allprojects {
     ext {
         versions = [
-            guava: '32.0.1-jre',
-            fastjson: '1.2.83',
-            commonslang3:'3.12.0',
+            guava: '32.1.2-jre',
+            fastjson: '2.0.41',
+            commonslang3:'3.13.0',
         ]
         libraries = [
             guava: "com.google.guava:guava:${versions.guava}",
-            fastjson: "com.alibaba:fastjson:${versions.fastjson}",
+            fastjson: "com.alibaba:fastjson2:${versions.fastjson}",
             commonslang3:"org.apache.commons:commons-lang3:${versions.commonslang3}"
         ]
         // defUrl = System.getProperty("url")? System.getProperty("url") : "http://creditcloud.com:8081/nexus/content/"
